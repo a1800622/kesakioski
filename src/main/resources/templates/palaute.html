@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+			th:href="@{css/bootstrap.min.css}" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("input").focus(function() {
+			$(this).css("background-color", "lightblue");
+		});
+		$("input").blur(function() {
+			$(this).css("background-color", "lightgray");
+		});
+	});
+</script>
+<title>Anna palaute</title>
+</head>
+<body>
+<h3>Anna palautetta:</h3>
+<form th:object="${palaute}" th:action="@{laheta}" action="#" method="post">
+
+<label for="otsikko">Otsikko:</label><input type="text" id="otsikko" th:field="*{otsikko}"/>
+<div style="clear: both; display: block; height: 10px;"></div>
+
+<label for="kuvaus">Kuvaus:</label><input type="text" id="kuvaus" th:field="*{kuvaus}"/>
+<div style="clear: both; display: block; height: 30px;"></div>
+
+<input type="submit" value="lähetä"></input>
+
+</form>
+
+</body>
+</html>

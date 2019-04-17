@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Palaute lista</title>
+</head>
+<body>
+
+<h3>Palautteet:</h3>
+<table class="table table-striped">
+		<tr>
+			<th>Otsikko:</th>
+			<th>Kuvaus:</th>
+			<th sec:authorize="hasAuthority('ADMIN')"></th>
+		</tr>
+		<tr th:each="palaute : ${palautteet}">
+			<td th:text="${palaute.otsikko}"></td>
+			<td th:text="${palaute.kuvaus}"></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/tyhjenna/{id}(id=${palaute.id})}" class="btn btn-success">Poista</a></td>
+		</tr>
+		
+	</table>
+
+
+</body>
+</html>

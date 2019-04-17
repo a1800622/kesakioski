@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("input").focus(function() {
+			$(this).css("background-color", "lightgreen");
+		});
+		$("input").blur(function() {
+			$(this).css("background-color", "lightgray");
+		});
+	});
+</script>
+
+
+<title>Luo tili</title>
+</head>
+<body>
+	<h1>Luo tili</h1>
+	<div class="col-md-4">
+		<form th:object="${signupform}" th:action="@{/saveuser}" action="#"
+			method="post">
+			<div>
+				<label> Käyttäjä:<input type="text" th:field="*{username}"
+					class="form-control" /></label>
+				<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Käyttäjä virhe</p>
+			</div>
+			
+			<div>
+			<label> Sähköposti: <input type="text" th:field="*{email}"
+					class="form-control" /></label>
+			</div>
+			
+			<div>
+				<label> Salasana:<input type="password"
+					th:field="*{password}" class="form-control" /></label>
+				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Salasana virhe</p>
+			</div>
+			<div>
+				<label> Kirjoita salasana uudestaan: <input type="password"
+					th:field="*{passwordCheck}" class="form-control" /></label>
+				<p th:if="${#fields.hasErrors('passwordCheck')}"
+					th:errors="*{passwordCheck}">Salasanat eivät täsmää</p>
+			</div>
+
+			<input type="submit" class="btn btn-success" value="Luo tili"></input>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$("input").focus(function() {
+			$(this).css("background-color", "lightblue");
+		});
+		$("input").blur(function() {
+			$(this).css("background-color", "lightgray");
+		});
+		$("#tnappi").click(function() {
+			$("#nimi").val("Aurinkovarjo");
+			$("#hinta").val(7.99);
+			$("#parastaEnnen").val(" ");
+			$("#ryhlist").val(2);
+		});
+		$("#tnappi").mouseenter(function() {
+			$("#panel").slideToggle("slow");
+		});
+	});
+</script>
+<style>
+#panel, #tnappi {
+	padding: 5px;
+	text-align: center;
+	background-color: lightblue;
+	border: solid 1px #c3c3c3;
+}
+
+#panel {
+	padding: 10px;
+	display: none;
+}
+</style>
+<title>Lisää tuote</title>
+</head>
+<body>
+	<h1>Lisää uusi tuote</h1>
+	<div>
+		<form th:object="${tuote}" th:action="@{tallenna}" action="#"
+			method="post">
+
+			<label for="nimi">Tuotteen nimi:</label> <input type="text" id="nimi"
+				th:field="*{nimi}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+			<label for="hinta">Hinta:</label> <input type="number" step="any"
+				id="hinta" th:field="*{hinta}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+			<label for="parastaEnnen">Tuotteen Päivämäärä:</label> <input
+				type="text" id="parastaEnnen" th:field="*{parastaEnnen}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+			<label for="ryhlist">Ryhmä:</label> <select id="ryhlist"
+				th:field="*{ryhma}" class="form-control">
+				<option th:each="ryhma: ${ryhmat}" th:value="${ryhma.ryhmaid}"
+					th:text="${ryhma.name}"></option>
+			</select>
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+			<input type="submit" value="tallenna"></input>
+			<button id="tnappi">Automaattinen täyttö</button>
+			<div id="panel">Tämä nappi täyttää syötöt ja tallentaa esimerkki tuotteella</div>
+
+		</form>
+	</div>
+</body>
+</html>

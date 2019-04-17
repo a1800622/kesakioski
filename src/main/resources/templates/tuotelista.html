@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Tuote lista</title>
+</head>
+<body>
+
+	<div class="col-md-4" style="padding: 20px 0">
+		<form sec:authorize="isAuthenticated()" th:action="@{/logout}"
+			method="post">
+			<input type="submit" value="Kirjaudu ulos"
+				class="btn btn-sm btn-danger" />
+		</form>
+	</div>
+
+	<h3 th:inline="text">Tervetuloa Kesäkioskiin
+		[[${#httpServletRequest.remoteUser}]]</h3>
+	<h2>Tuotelista</h2>
+	<table class="table table-striped">
+		<tr>
+			<th>Tuotenimi:</th>
+			<th>Hinta:</th>
+			<th>Parasta ennen:</th>
+			<th>Ryhmä:</th>
+			<th sec:authorize="hasAuthority('ADMIN')"></th>
+			<th sec:authorize="hasAuthority('ADMIN')"></th>
+		</tr>
+		<tr th:each="tuote : ${tuotteet}">
+			<td th:text="${tuote.nimi}"></td>
+			<td th:text="${tuote.hinta}"></td>
+			<td th:text="${tuote.parastaEnnen}"></td>
+			<td th:text="${tuote.ryhma.name}"></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a
+				th:href="@{/muokkaa/{id}(id=${tuote.id})}" class="btn btn-success">Muokkaa</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a
+				th:href="@{/poista/{id}(id=${tuote.id})}" class="btn btn-danger">Poista</a></td>
+		</tr>
+		<tr>
+			<th sec:authorize="hasAuthority('ADMIN')"><a href="/lisaa"
+				class="btn btn-success"> Lisää tuote</a></th>
+			<th sec:authorize="hasAuthority('USER')"><a href="/palaute"
+				class="btn btn-warning">Anna palaute</a></th>
+			<th sec:authorize="hasAuthority('ADMIN')"><a
+				href="/palautelista" class="btn btn-warning">Palautelista</a></th>
+			<th sec:authorize="hasAuthority('ADMIN') || hasAuthority('USER')"></th>
+			<th sec:authorize="hasAuthority('ADMIN') || hasAuthority('USER')"></th>
+			<th sec:authorize="hasAuthority('ADMIN') || hasAuthority('USER')"></th>
+			<th sec:authorize="hasAuthority('ADMIN')"></th>
+		</tr>
+	</table>
+
+
+
+</body>
+</html>
