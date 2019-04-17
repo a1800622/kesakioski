@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 @Override
 protected void configure(HttpSecurity http) throws Exception{
 	http
-	.authorizeRequests().antMatchers("/css/**", "/tuotelista","/h2-console/**","/signup","/saveuser","/etusivu").permitAll()
+	.authorizeRequests().antMatchers("/css/**", "/tuotelista","/h2-console/**","/signup","/saveuser").permitAll()
 	.and()
 	.authorizeRequests().antMatchers("/poista/{id}","/muokkaa/{id}","/palautelista","/tyhjenna/{id}").hasAuthority("ADMIN")
 	.and()
